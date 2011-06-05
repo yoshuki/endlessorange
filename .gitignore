@@ -1,0 +1,5 @@
+.bundle
+.rvmrc
+Gemfile.lock
+tmp/**/*
+vendor/bundle
