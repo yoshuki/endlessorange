@@ -9,7 +9,7 @@ module EndlessOrange
     end
 
     get '/hey' do
-      movies = YAML.load(File.read(File.join(File.dirname(__FILE__), 'movies.yaml')))
+      movies = YAML.load(File.read(File.join(File.dirname(__FILE__), 'movies.yml')))
 
       begin
         @video_id = movies.keys.sample
