@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @video_title %></title>
+  <title>endlessorange</title>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-514229-2']);
@@ -13,52 +13,12 @@
     })();
   </script>
 </head>
-<body style="background-color: #000; margin: 0; padding: 0;">
-<div id="player"></div>
-<script>
-  var playerHeight = window.innerHeight - 5;
-  var playerWidth  = window.innerWidth;
-  var playerDivStyle = document.getElementById('player').style;
-  playerDivStyle.height = playerHeight + 'px';
-  playerDivStyle.width  = playerWidth  + 'px';
-
-  //Load player api asynchronously.
-  var tag = document.createElement('script');
-  tag.src = 'http://www.youtube.com/player_api';
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  var player;
-  function onYouTubePlayerAPIReady() {
-    player = new YT.Player('player', {
-      height: playerHeight,
-      width: playerWidth,
-      videoId: '<%= @video_id %>',
-      events: {
-        'onStateChange': onPlayerStateChange
-      },
-      playerVars: {
-        'autohide': 1,
-        'autoplay': 1,
-        'rel': 0
-      }
-    });
-  }
-  function onPlayerStateChange(evt) {
-    if (evt.data != YT.PlayerState.ENDED) return;
-
-    var url = location.href;
-    if (url.length < document.URL.length) url = document.URL;
-
-    var qIndex = url.indexOf('?');
-    var urlBase;
-    if (qIndex < 0) {
-      urlBase = url;
-    } else {
-      urlBase = url.substring(0, qIndex);
-    }
-
-    location.href = urlBase + '?vid=<%= @video_id %>';
-  }
-</script>
+<body>
+  <a href="/hey">HEY!</a>
+  <div style="float: right">
+    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fendlessorange.heroku.com%2F&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:21px; margin-left: 10px" allowTransparency="true"></iframe>
+    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <a href="http://b.hatena.ne.jp/entry/http://endlessorange.heroku.com/" class="hatena-bookmark-button" data-hatena-bookmark-title="endlessorange" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </div>
 </body>
 </html>

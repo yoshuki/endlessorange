@@ -5,6 +5,10 @@ require 'sinatra'
 module EndlessOrange
   class Application < Sinatra::Base
     get '/' do
+      erb :top
+    end
+
+    get '/hey' do
       movies = YAML.load(File.read(File.join(File.dirname(__FILE__), 'movies.yaml')))
 
       begin
@@ -12,7 +16,7 @@ module EndlessOrange
         @video_title = movies[@video_id]['title']
       end until @video_id != params[:vid]
 
-      erb :top
+      erb :hey
     end
   end
 end

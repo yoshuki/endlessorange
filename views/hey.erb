@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @video_title %></title>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-514229-2']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+<body style="background-color: #000; margin: 0; padding: 0;">
+<div id="player"></div>
+<script>
+  var playerHeight = window.innerHeight - 5;
+  var playerWidth  = window.innerWidth;
+  var playerDivStyle = document.getElementById('player').style;
+  playerDivStyle.height = playerHeight + 'px';
+  playerDivStyle.width  = playerWidth  + 'px';
+
+  //Load player api asynchronously.
+  var tag = document.createElement('script');
+  tag.src = 'http://www.youtube.com/player_api';
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  var player;
+  function onYouTubePlayerAPIReady() {
+    player = new YT.Player('player', {
+      height: playerHeight,
+      width: playerWidth,
+      videoId: '<%= @video_id %>',
+      events: {
+        'onStateChange': onPlayerStateChange
+      },
+      playerVars: {
+        'autohide': 1,
+        'autoplay': 1,
+        'rel': 0
+      }
+    });
+  }
+  function onPlayerStateChange(evt) {
+    if (evt.data != YT.PlayerState.ENDED) return;
+
+    var url = location.href;
+    if (url.length < document.URL.length) url = document.URL;
+
+    var qIndex = url.indexOf('?');
+    var urlBase;
+    if (qIndex < 0) {
+      urlBase = url;
+    } else {
+      urlBase = url.substring(0, qIndex);
+    }
+
+    location.href = urlBase + '?vid=<%= @video_id %>';
+  }
+</script>
+</body>
+</html>
