@@ -9,6 +9,7 @@ module EndlessOrange
 
       begin
         @video_id = movies.keys.sample
+        @video_title = movies[@video_id]['title']
       end until @video_id != params[:vid]
 
       erb :top

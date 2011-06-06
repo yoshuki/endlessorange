@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
 <html style="margin: 0; padding: 0;">
+<head>
+  <title><%= @video_title %></title>
+</head>
 <body style="margin: 0; padding: 0;">
 <div id="player"></div>
 <script>
@@ -21,16 +24,13 @@
       width: playerWidth,
       videoId: '<%= @video_id %>',
       events: {
-        'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
       },
       playerVars: {
-        'rel': 0
+        'rel': 0,
+        'autoplay': 1
       }
     });
-  }
-  function onPlayerReady(evt) {
-    evt.target.playVideo();
   }
   function onPlayerStateChange(evt) {
     if (evt.data != YT.PlayerState.ENDED) return;
