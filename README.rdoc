@@ -1,0 +1,7 @@
+= Endless Annoying Orange
+
+Endless watch Annoying Orange. (http://annoyingorange.com/)
+
+== Copyright
+
+Copyright (c) 2011 MIKAMI Yoshiyuki. See LICENSE for details.
