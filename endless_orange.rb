@@ -11,10 +11,15 @@ module EndlessOrange
     get '/hey' do
       movies = YAML.load(File.read(File.join(File.dirname(__FILE__), 'movies.yml')))
 
-      begin
-        @video_id = movies.keys.sample
-        @video_title = movies[@video_id]['title']
-      end until @video_id != params[:last]
+      if movies.keys.include?(params[:next])
+        @video_id = params[:next]
+      else
+        begin
+          @video_id = movies.keys.sample
+        end until @video_id != params[:last]
+      end
+
+      @video_title = movies[@video_id]['title']
 
       erb :hey
     end
