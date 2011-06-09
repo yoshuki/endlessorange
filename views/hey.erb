@@ -16,8 +16,13 @@
 <body style="background-color: #000; margin: 0; padding: 0;">
 <div id="player"></div>
 <script>
-  var playerHeight = window.innerHeight - 5;
-  var playerWidth  = window.innerWidth;
+  var windowHeight = window.innerHeight;
+  var windowWidth  = window.innerWidth;
+  if (windowHeight == null) windowHeight = document.documentElement.clientHeight;
+  if (windowWidth  == null) windowWidth  = document.documentElement.clientWidth;
+
+  var playerHeight = windowHeight - 5;
+  var playerWidth  = windowWidth;
   var playerDivStyle = document.getElementById('player').style;
   playerDivStyle.height = playerHeight + 'px';
   playerDivStyle.width  = playerWidth  + 'px';
