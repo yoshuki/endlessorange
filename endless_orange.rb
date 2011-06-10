@@ -4,6 +4,10 @@ require 'sinatra'
 
 module EndlessOrange
   class Application < Sinatra::Base
+    configure do
+      set :root, File.dirname(__FILE__)
+    end
+
     get '/' do
       erb :top
     end
