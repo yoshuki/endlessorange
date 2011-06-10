@@ -39,7 +39,7 @@
       width: playerWidth,
       videoId: '<%= @video_id %>',
       events: {
-        'onStateChange': onPlayerStateChange
+        'onEnded': onVideoEnded
       },
       playerVars: {
         'autohide': 1,
@@ -48,9 +48,7 @@
       }
     });
   }
-  function onPlayerStateChange(evt) {
-    if (evt.data != YT.PlayerState.ENDED) return;
-
+  function onVideoEnded(evt) {
     var url = location.href;
     if (url.length < document.URL.length) url = document.URL;
 
