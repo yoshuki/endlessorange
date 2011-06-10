@@ -5,7 +5,10 @@ require 'sinatra'
 module EndlessOrange
   class Application < Sinatra::Base
     configure do
+p settings.app_file
+p settings.root
       set :root, File.dirname(__FILE__)
+p settings.root
     end
 
     get '/' do
