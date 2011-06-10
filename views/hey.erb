@@ -39,7 +39,8 @@
       width: playerWidth,
       videoId: '<%= @video_id %>',
       events: {
-        'onEnded': onVideoEnded
+//      'onEnded': onVideoEnded                                       // "onEnded" isn't fired at iPad.
+        'onPaused': onVideoEnded
       },
       playerVars: {
         'autohide': 1,
@@ -49,6 +50,8 @@
     });
   }
   function onVideoEnded(evt) {
+    if (evt.target.a.currentTime != evt.target.a.duration) return;    // "onEnded" isn't fired at iPad.
+
     var url = location.href;
     if (url.length < document.URL.length) url = document.URL;
 
