@@ -14,6 +14,7 @@
   </script>
 </head>
 <body style="background-color: #000; margin: 0; padding: 0;">
+<div style="height: 18px; font-size: 15px; margin: 1px 5px;"><a href="http://www.youtube.com/watch?v=<%= @video_id %>" style="color: #fff; text-decoration: none;">http://www.youtube.com/watch?v=<%= @video_id %></a></div>
 <div id="player"></div>
 <script>
   var windowHeight = window.innerHeight;
@@ -21,7 +22,7 @@
   if (windowHeight == null) windowHeight = document.documentElement.clientHeight;
   if (windowWidth  == null) windowWidth  = document.documentElement.clientWidth;
 
-  var playerHeight = windowHeight - 5;
+  var playerHeight = windowHeight - 25;
   var playerWidth  = windowWidth;
   var playerDivStyle = document.getElementById('player').style;
   playerDivStyle.height = playerHeight + 'px';
