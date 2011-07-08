@@ -41,8 +41,6 @@
       width: playerWidth,
       videoId: '<%= @video_id %>',
       events: {
-        'onEnded': onVideoEnded,
-        'onPaused': onVideoEnded,
         'onStateChange': onVideoEnded
       },
       playerVars: {
@@ -53,7 +51,9 @@
     });
   }
   function onVideoEnded(evt) {
-    if (evt.target.a.currentTime != evt.target.a.duration) return;    // Ignore if it's not ended.
+    // Check whether video ended manually. (Sometime events not occured.)
+    if (!evt.target.a.currentTime || !evt.target.a.duration)  return;
+    if (evt.target.a.currentTime < evt.target.a.duration - 1) return;
 
     var url = location.href;
     if (url.length < document.URL.length) url = document.URL;
