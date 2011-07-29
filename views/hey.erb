@@ -53,7 +53,7 @@
   function onVideoEnded(evt) {
     // Check whether video ended manually. (Sometime events not occured.)
     if (!evt.target.a.currentTime || !evt.target.a.duration)  return;
-    if (evt.target.a.currentTime < evt.target.a.duration - 1) return;
+    if (evt.target.a.currentTime < evt.target.a.duration - 3) return;
 
     var url = location.href;
     if (url.length < document.URL.length) url = document.URL;
