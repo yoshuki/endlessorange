@@ -17,6 +17,13 @@ def fetch_movies(params)
   movies = {}
   feed = Atom::Feed.new("http://gdata.youtube.com/feeds/api/users/realannoyingorange/uploads?orderby=published&#{params}")
   feed.update!
-  feed.entries.each {|e| movies[File.basename(URI(e.id).path)] = {'published' => e.published.to_s, 'title' => e.title.to_s} }
+  feed.entries.each do |entry|
+    thumbnail = entry.extensions.detect {|ext| ext.expanded_name == 'media:group' }.elements['media:thumbnail']
+    movies[File.basename(URI(entry.id).path)] = {'published' => entry.published.to_s,
+                                                 'title'     => entry.title.to_s,
+                                                 'thumbnail' => {'url'    => thumbnail.attributes['url'].to_s,
+                                                                 'height' => thumbnail.attributes['height'].to_s,
+                                                                 'width'  => thumbnail.attributes['width'].to_s}}
+  end
   movies
 end
