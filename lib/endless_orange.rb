@@ -10,6 +10,7 @@ module EndlessOrange
     end
 
     get '/' do
+      @movies = @@movies
       erb :top
     end
 
