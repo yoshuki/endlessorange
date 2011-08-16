@@ -7,7 +7,7 @@ task :update_movies do
   begin
     m1 = fetch_movies('start-index=1&max-results=50')
     m2 = fetch_movies('start-index=51&max-results=50')
-    File.open('movies.yml', 'w') {|f| f.puts YAML.dump(m1.merge(m2)) }
+    File.open(File.join('config', 'movies.yml'), 'w') {|f| f.puts YAML.dump(m1.merge(m2)) }
   rescue => evar
     puts evar.message
   end

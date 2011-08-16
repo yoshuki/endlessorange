@@ -5,7 +5,8 @@ require 'sinatra'
 module EndlessOrange
   class Application < Sinatra::Base
     configure do
-      set :root, File.dirname(__FILE__)
+      set :root, File.expand_path('..', File.dirname(__FILE__))
+      @@movies = YAML.load(File.read(File.join(settings.root, 'config', 'movies.yml'))).freeze
     end
 
     get '/' do
@@ -13,17 +14,15 @@ module EndlessOrange
     end
 
     get '/hey' do
-      movies = YAML.load(File.read(File.join(File.dirname(__FILE__), 'movies.yml')))
-
-      if movies.keys.include?(params[:next])
+      if @@movies.keys.include?(params[:next])
         @video_id = params[:next]
       else
         begin
-          @video_id = movies.keys.sample
+          @video_id = @@movies.keys.sample
         end until @video_id != params[:last]
       end
 
-      @video_title = movies[@video_id]['title']
+      @video_title = @@movies[@video_id]['title']
 
       erb :hey
     end
