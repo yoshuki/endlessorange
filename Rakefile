@@ -5,9 +5,8 @@ require 'atom/feed'
 desc 'Update movie list.'
 task :update_movies do
   begin
-    m1 = fetch_movies('start-index=1&max-results=50')
-    m2 = fetch_movies('start-index=51&max-results=50')
-    File.open(File.join('config', 'movies.yml'), 'w') {|f| f.puts YAML.dump(m1.merge(m2)) }
+    movies = [1, 51, 101].inject({}) {|m, n| m.merge(fetch_movies("start-index=#{n}&max-results=50")) }
+    File.open(File.join('config', 'movies.yml'), 'w') {|f| f.puts YAML.dump(movies) }
   rescue => evar
     puts evar.message
   end
