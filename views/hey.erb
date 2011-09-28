@@ -51,9 +51,10 @@
     });
   }
   function onVideoEnded(evt) {
-    // Check whether video ended manually. (Sometime events not occured.)
-    if (!evt.target.a.currentTime || !evt.target.a.duration)  return;
-    if (evt.target.a.currentTime < evt.target.a.duration - 3) return;
+    var player_object = evt.target.g;
+    // Check whether video is ended manually. (Sometime 'onEnded' wasn't occured.)
+    if (!player_object.currentTime || !player_object.duration)  return;
+    if (player_object.currentTime < player_object.duration - 3) return;
 
     var url = location.href;
     if (url.length < document.URL.length) url = document.URL;
