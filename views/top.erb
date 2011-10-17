@@ -25,7 +25,7 @@
     <a href="http://b.hatena.ne.jp/entry/http://endlessorange.heroku.com/" class="hatena-bookmark-button" data-hatena-bookmark-title="Endless Annoying Orange" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
   </div>
   <div style="float: right; font-size: 16px;">This is *not* official product. The official site is &quot;<a href="http://annoyingorange.com/">Annoying Orange | Fresh squeezed comedy</a>&quot;.</div>
-  <div style="border: 1px solid #f90; line-height: 0; margin: 26px 0; padding: 1px;"><% @movies.each {|key, val| %><a href="/hey?next=<%= key %>"><img src="<%= val['thumbnail']['url'] %>" alt="<%= key %>" height="<%= val['thumbnail']['height'].to_i / 3 %>" width="<%= val['thumbnail']['width'].to_i / 3 %>" /></a><% } %></div>
+  <div style="border: 1px solid #f90; line-height: 0; margin: 26px 0; padding: 1px;"><% @movies.each {|key, val| %><a href="/hey?next=<%= key %>"><img src="<%= val['thumbnail']['url'] %>" alt="<%=h val['title'] %>" title="<%=h val['title'] %>" height="<%= val['thumbnail']['height'].to_i / 3 %>" width="<%= val['thumbnail']['width'].to_i / 3 %>" /></a><% } %></div>
   <div style="float: right; font-size: 16px;"><a href="http://twitter.com/yoshuki">@yoshuki</a></div>
 </body>
 </html>
