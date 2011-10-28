@@ -51,7 +51,7 @@
     });
   }
   function onVideoEnded(evt) {
-    var player_object = evt.target.g;
+    var player_object = evt.target.f;
     // Check whether video is ended manually. (Sometime 'onEnded' wasn't occured.)
     if (!player_object.currentTime || !player_object.duration)  return;
     if (player_object.currentTime < player_object.duration - 3) return;
