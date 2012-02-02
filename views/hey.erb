@@ -51,9 +51,11 @@
     });
   }
   function onVideoEnded(evt) {
-    var player_object = evt.target.f;
+// TODO: Check if player_object exists.
+    var player_object = evt.target.d;
+//    var player_object = evt.target.f;
     // Check whether video is ended manually. (Sometime 'onEnded' wasn't occured.)
-    if (!player_object.currentTime || !player_object.duration)  return;
+    if (!player_object || !player_object.currentTime || !player_object.duration)  return;
     if (player_object.currentTime < player_object.duration - 3) return;
 
     var url = location.href;
