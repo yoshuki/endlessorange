@@ -2,11 +2,17 @@
 
 require 'atom/feed'
 
+desc 'This task is called by the Heroku cron add-on'
+task :cron do
+  Rake::Task[:update_movies].invoke
+end
+
 desc 'Update movie list.'
 task :update_movies do
   begin
     movies = [1, 51, 101].inject({}) {|m, n| m.merge(fetch_movies("start-index=#{n}&max-results=50")) }
     File.open(File.join('config', 'movies.yml'), 'w') {|f| f.puts YAML.dump(movies) }
+    puts 'Updating movie list succeeded.'
   rescue => evar
     puts evar.message
   end
@@ -24,5 +30,5 @@ def fetch_movies(params)
                                                                  'height' => thumbnail.attributes['height'].to_s,
                                                                  'width'  => thumbnail.attributes['width'].to_s}}
   end
-  movies
+  return movies
 end
