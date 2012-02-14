@@ -6,7 +6,9 @@ module EndlessOrange
   class Application < Sinatra::Base
     configure do
       set :root, File.expand_path('..', File.dirname(__FILE__))
-      @@movies = YAML.load(File.read(File.join(settings.root, 'config', 'movies.yml'))).freeze
+      movies_yml = File.join(settings.root, 'tmp', 'movies.yml')
+      movies_yml = File.join(settings.root, 'config', 'movies.yml') unless File.exist?(movies_yml)
+      @@movies = YAML.load(File.read(movies_yml)).freeze
     end
 
     get '/' do
