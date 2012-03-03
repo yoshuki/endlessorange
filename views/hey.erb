@@ -51,12 +51,13 @@
     });
   }
   function onVideoEnded(evt) {
-// TODO: Check if player_object exists.
-    var player_object = evt.target.d;
-//    var player_object = evt.target.f;
-    // Check whether video is ended manually. (Sometime 'onEnded' wasn't occured.)
-    if (!player_object || !player_object.currentTime || !player_object.duration)  return;
-    if (player_object.currentTime < player_object.duration - 3) return;
+    var target = evt.target;
+    if (target && (typeof target.getCurrentTime) == 'function'
+               && (typeof target.getDuration)    == 'function') {
+      if (target.getCurrentTime() < target.getDuration() - 3) return;
+    } else {
+      return;
+    }
 
     var url = location.href;
     if (url.length < document.URL.length) url = document.URL;
