@@ -12,7 +12,7 @@ task :update_movies do
   begin
     movies = [1, 51, 101].inject({}) {|m, n| m.merge(fetch_movies("start-index=#{n}&max-results=50")) }
     File.open(File.join('tmp', 'movies.yml'), 'w') {|f| f.puts YAML.dump(movies) }
-    FileUtils.copy(File.join('tmp', 'movies.yml'), File.join('config', 'movies.yml')) rescue
+    FileUtils.copy(File.join('tmp', 'movies.yml'), File.join('config', 'movies.yml'))
     puts 'Updating movie list succeeded.'
   rescue => evar
     puts evar.message
