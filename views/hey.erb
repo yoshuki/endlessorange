@@ -15,8 +15,8 @@
 </head>
 <body style="background-color: #000; margin: 0; padding: 0;">
 <div id="player"></div>
-<div style="height: 18px; float: right; font-size: 15px; margin: 1px 5px;"><a href="http://www.youtube.com/watch?v=<%= @video_id %>" style="color: #ccc; text-decoration: none;">http://www.youtube.com/watch?v=<%= @video_id %></a></div>
-<div style="height: 18px; float: left; font-size: 15px; margin: 1px 5px;"><a href="/" style="color: #ccc; text-decoration: none;">&laquo; TOP</a></div>
+<div style="float: right; font-size: 15px; height: 18px; line-height: 18px; margin: 1px 5px;"><a href="http://www.youtube.com/watch?v=<%= @video_id %>" style="color: #ccc; text-decoration: none;">http://www.youtube.com/watch?v=<%= @video_id %></a></div>
+<div style="float: left; font-size: 15px; height: 18px; line-height: 18px; margin: 1px 5px;"><a href="/" style="color: #ccc; text-decoration: none;">&laquo; TOP</a></div>
 <script>
   var windowHeight = window.innerHeight;
   var windowWidth  = window.innerWidth;
@@ -29,48 +29,41 @@
   playerDivStyle.height = playerHeight + 'px';
   playerDivStyle.width  = playerWidth  + 'px';
 
-  //Load player api asynchronously.
+  // Load the IFrame Player API code asynchronously.
   var tag = document.createElement('script');
-  tag.src = 'http://www.youtube.com/player_api';
+  tag.src = '//www.youtube.com/iframe_api';
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   var player;
-  function onYouTubePlayerAPIReady() {
+  function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
       height: playerHeight,
       width: playerWidth,
       videoId: '<%= @video_id %>',
       events: {
-        'onStateChange': onVideoEnded
+        'onStateChange': onPlayerStateChange
       },
       playerVars: {
-        'autohide': 1,
         'autoplay': 1,
         'rel': 0
       }
     });
   }
-  function onVideoEnded(evt) {
-    var target = evt.target;
-    if (target && (typeof target.getCurrentTime) == 'function'
-               && (typeof target.getDuration)    == 'function') {
-      if (target.getCurrentTime() < target.getDuration() - 3) return;
-    } else {
-      return;
+  function onPlayerStateChange(evt) {
+    if (evt.data == YT.PlayerState.ENDED) {
+      var url = location.href;
+      if (url.length < document.URL.length) url = document.URL;
+
+      var qIndex = url.indexOf('?');
+      var urlBase;
+      if (qIndex < 0) {
+        urlBase = url;
+      } else {
+        urlBase = url.substring(0, qIndex);
+      }
+
+      location.href = urlBase + '?last=<%= @video_id %>';
     }
-
-    var url = location.href;
-    if (url.length < document.URL.length) url = document.URL;
-
-    var qIndex = url.indexOf('?');
-    var urlBase;
-    if (qIndex < 0) {
-      urlBase = url;
-    } else {
-      urlBase = url.substring(0, qIndex);
-    }
-
-    location.href = urlBase + '?last=<%= @video_id %>';
   }
 </script>
 </body>
