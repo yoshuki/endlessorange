@@ -8,7 +8,7 @@ module EndlessOrange
       set :root, File.expand_path('..', File.dirname(__FILE__))
       movies_yml = File.join(settings.root, 'tmp', 'movies.yml')
       movies_yml = File.join(settings.root, 'config', 'movies.yml') unless File.exist?(movies_yml)
-      @@movies = YAML.load(File.read(movies_yml)).freeze
+      @@movies = YAML.load_file(movies_yml).freeze
     end
 
     get '/' do
